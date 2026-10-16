@@ -3,6 +3,8 @@ import Base from "../layouts/Base.astro";
 import { CATEGORIES } from "../data/categories";
 import { REPO_URL } from "../config";
 
+// Set PUBLIC_TURNSTILE_SITE_KEY in the Cloudflare build settings to show the bot check.
+const turnstileKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | undefined;
 const issueUrl = `${REPO_URL}/issues/new?template=submit-server.yml`;
 const example = JSON.stringify(
   {
@@ -23,28 +25,80 @@ const example = JSON.stringify(
 );
 ---
 
-<Base title="Submit a server" description="Add an MCP server to the directory by opening an issue or a pull request." nav="submit">
+<Base title="Submit a server" description="Suggest an MCP server for the directory. No account needed." nav="submit">
+  {turnstileKey && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
+
   <header class="top">
     <div>
       <div class="crumbs"><a href="/">Directory</a> / Submit</div>
       <h1>Submit a server</h1>
-      <p>Know an MCP server that belongs here? There are two ways to add it. Both are reviewed before the listing goes live.</p>
+      <p>Know an MCP server that belongs here? Tell us about it. Every submission is reviewed before it's listed.</p>
     </div>
   </header>
 
-  <div class="prose">
-    <h2>The quick way: open an issue</h2>
-    <p>Fill in a short form on GitHub with the server's name, link and what it does. A maintainer turns it into a listing.</p>
-    <p><a class="btn primary" href={issueUrl}>Open a submission form</a></p>
+  <div class="detail">
+    <section class="sheet">
+      <form class="form" id="sform" method="post" action="/api/submit" novalidate>
+        <div class="field"><label for="s-name">Server name</label><input id="s-name" name="name" type="text" required maxlength="80" placeholder="e.g. Linear" /></div>
+        <div class="field"><label for="s-maint">Maintained by</label><input id="s-maint" name="maintainer" type="text" maxlength="80" placeholder="Company or GitHub user" /></div>
+        <div class="field full"><label for="s-url">Repository or docs link</label><input id="s-url" name="url" type="url" required maxlength="300" placeholder="https://github.com/…" /></div>
+        <div class="field full"><label for="s-summary">What it does</label><textarea id="s-summary" name="summary" required maxlength="280" placeholder="One or two sentences on what an agent can do with it."></textarea></div>
+        <div class="field">
+          <label for="s-cat">Category</label>
+          <select id="s-cat" name="category">{CATEGORIES.map((c) => <option value={c.id}>{c.label}</option>)}</select>
+        </div>
+        <div class="field">
+          <label for="s-auth">Sign-in</label>
+          <select id="s-auth" name="auth">
+            <option value="none">None</option>
+            <option value="oauth">OAuth</option>
+            <option value="api-key">API key</option>
+            <option value="credentials">Own credentials</option>
+          </select>
+        </div>
+        <fieldset class="field">
+          <legend>Runs as</legend>
+          <div class="checks">
+            <label><input id="s-stdio" name="transport" value="stdio" type="checkbox" checked /> Local (stdio)</label>
+            <label><input id="s-http" name="transport" value="http" type="checkbox" /> Remote (HTTP)</label>
+          </div>
+        </fieldset>
+        <div class="field"><label for="s-endpoint">Remote endpoint <span class="opt">(optional)</span></label><input id="s-endpoint" name="endpoint" type="url" maxlength="300" placeholder="https://mcp.example.com/mcp" /></div>
+        <div class="field full"><label for="s-contact">Your email or GitHub handle <span class="opt">(optional, in case we have questions)</span></label><input id="s-contact" name="contact" type="text" maxlength="120" /></div>
 
-    <h2>The direct way: open a pull request</h2>
+        <!-- Spam traps: hidden from people, filled in by bots -->
+        <div class="trap" aria-hidden="true"><label for="s-website">Website</label><input id="s-website" name="website" type="text" tabindex="-1" autocomplete="off" /></div>
+        <input type="hidden" name="started" id="s-started" value="0" />
+
+        {turnstileKey && <div class="field full"><div class="cf-turnstile" data-sitekey={turnstileKey}></div></div>}
+
+        <div class="formfoot">
+          <button class="btn primary" type="submit" id="s-go">Send for review</button>
+          <span class="note" id="s-note" role="status"></span>
+        </div>
+      </form>
+    </section>
+
+    <aside class="stack">
+      <section class="sheet">
+        <h2>What happens next</h2>
+        <p class="muted" style="margin:0">Your submission becomes a public issue in our <a href={`${REPO_URL}/issues?q=label%3Asubmission`}>GitHub repo</a>, where we check it before it's listed. Your contact details are included there so we can follow up, so leave that field blank if you'd rather keep them private.</p>
+      </section>
+      <section class="sheet">
+        <h2>Prefer GitHub?</h2>
+        <p class="muted" style="margin:0 0 12px">Use the <a href={issueUrl}>issue form</a>, or open a pull request that adds the listing yourself. The details are below.</p>
+      </section>
+    </aside>
+  </div>
+
+  <div class="prose" id="pull-request">
+    <h2>Adding a listing by pull request</h2>
     <ol>
       <li>Add a file at <code>src/data/servers/&lt;name&gt;.json</code>. Use lowercase letters, digits and dashes for the file name; it becomes the page URL.</li>
       <li>Fill it in like the example below. The build checks every field and tells you what's missing.</li>
       <li>Open the pull request. The site rebuilds once it's merged.</li>
     </ol>
     <pre class="snippet"><code>{example}</code></pre>
-
     <h2>Field reference</h2>
     <ul>
       <li><code>category</code>: one of {CATEGORIES.map((c, i) => <>{i > 0 && ", "}<code>{c.id}</code></>)}</li>
@@ -55,3 +109,50 @@ const example = JSON.stringify(
     </ul>
   </div>
 </Base>
+
+<script>
+  const form = document.getElementById("sform") as HTMLFormElement;
+  const note = document.getElementById("s-note")!;
+  const go = document.getElementById("s-go") as HTMLButtonElement;
+  (document.getElementById("s-started") as HTMLInputElement).value = String(Date.now());
+
+  function say(text: string, isError = false, html = false) {
+    note.className = isError ? "note err" : "note";
+    if (html) note.innerHTML = text;
+    else note.textContent = text;
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    if (!String(data.get("name")).trim() || !String(data.get("summary")).trim()) return say("Add a server name and a short description.", true);
+    if (!/^https?:\/\/\S+\.\S+/.test(String(data.get("url")).trim())) return say("Add a link that starts with https://", true);
+    if (!data.getAll("transport").length) return say("Pick at least one way the server runs.", true);
+
+    go.disabled = true;
+    say("Sending…");
+    try {
+      const res = await fetch(form.action, { method: "POST", body: data });
+      const out = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(out.error || "Your submission couldn't be saved just now. Try again in a few minutes.");
+      const name = String(data.get("name")).trim();
+      form.reset();
+      (document.getElementById("s-started") as HTMLInputElement).value = String(Date.now());
+      (window as any).turnstile?.reset();
+      if (out.url) {
+        const a = document.createElement("a");
+        a.href = out.url;
+        a.textContent = `issue #${out.issue}`;
+        say(`Thanks! ${name} is in the review queue as `);
+        note.append(a, ".");
+      } else {
+        say(`Thanks! ${name} is in the review queue.`);
+      }
+    } catch (err) {
+      say((err as Error).message, true);
+      (window as any).turnstile?.reset();
+    } finally {
+      go.disabled = false;
+    }
+  });
+</script>
