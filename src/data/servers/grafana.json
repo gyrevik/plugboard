@@ -1,0 +1,20 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "api-key",
+  "category": "dev",
+  "lang": "Go",
+  "maintainer": "Grafana Labs",
+  "name": "Grafana",
+  "official": true,
+  "summary": "Search dashboards, query Prometheus and Loki data sources, and inspect alerts and incidents.",
+  "tags": [
+    "dashboards",
+    "prometheus",
+    "loki",
+    "observability"
+  ],
+  "transport": [
+    "stdio"
+  ],
+  "url": "https://github.com/grafana/mcp-grafana"
+}

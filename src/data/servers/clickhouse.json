@@ -1,0 +1,19 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "credentials",
+  "category": "data",
+  "lang": "Python",
+  "maintainer": "ClickHouse",
+  "name": "ClickHouse",
+  "official": true,
+  "summary": "Run read-only SQL against ClickHouse clusters and explore schemas.",
+  "tags": [
+    "analytics",
+    "sql",
+    "olap"
+  ],
+  "transport": [
+    "stdio"
+  ],
+  "url": "https://github.com/ClickHouse/mcp-clickhouse"
+}

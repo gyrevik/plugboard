@@ -1,0 +1,18 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "none",
+  "category": "reference",
+  "lang": "Python",
+  "maintainer": "MCP steering group",
+  "name": "Fetch",
+  "official": true,
+  "summary": "Fetch web pages and convert them to markdown for the model.",
+  "tags": [
+    "web",
+    "reference"
+  ],
+  "transport": [
+    "stdio"
+  ],
+  "url": "https://github.com/modelcontextprotocol/servers/tree/main/src/fetch"
+}

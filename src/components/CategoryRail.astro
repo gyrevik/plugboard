@@ -1,0 +1,26 @@
+---
+import { CATEGORIES } from "../data/categories";
+import { SERVERS } from "../data/servers";
+
+interface Props { current: string }
+const { current } = Astro.props;
+const items = [
+  { href: "/", id: "all", label: "All servers", color: "--ink", n: SERVERS.length },
+  ...CATEGORIES.map((c) => ({ href: `/categories/${c.id}/`, id: c.id, label: c.label, color: c.color, n: SERVERS.filter((s) => s.category === c.id).length })).filter((c) => c.n > 0),
+];
+---
+
+<div>
+  <h2>Category</h2>
+  <ul class="catlist">
+    {items.map((c) => (
+      <li>
+        <a href={c.href} aria-current={current === c.id ? "page" : undefined}>
+          <span class="plug" style={`--cc: var(${c.color})`}></span>
+          {c.label}
+          <span class="n">{c.n}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</div>

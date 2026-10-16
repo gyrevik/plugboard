@@ -1,0 +1,21 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "oauth",
+  "category": "commerce",
+  "endpoint": "https://mcp.stripe.com",
+  "lang": "TypeScript",
+  "maintainer": "Stripe",
+  "name": "Stripe",
+  "official": true,
+  "summary": "Work with Stripe customers, payments, invoices and products, and search Stripe docs.",
+  "tags": [
+    "payments",
+    "billing",
+    "invoices"
+  ],
+  "transport": [
+    "stdio",
+    "http"
+  ],
+  "url": "https://github.com/stripe/agent-toolkit"
+}

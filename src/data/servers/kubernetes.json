@@ -1,0 +1,19 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "credentials",
+  "category": "cloud",
+  "lang": "Go",
+  "maintainer": "containers (Red Hat)",
+  "name": "Kubernetes",
+  "official": false,
+  "summary": "Inspect and manage Kubernetes and OpenShift resources through your kubeconfig.",
+  "tags": [
+    "k8s",
+    "openshift",
+    "pods"
+  ],
+  "transport": [
+    "stdio"
+  ],
+  "url": "https://github.com/containers/kubernetes-mcp-server"
+}

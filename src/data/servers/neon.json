@@ -1,0 +1,20 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "oauth",
+  "category": "data",
+  "lang": "TypeScript",
+  "maintainer": "Neon",
+  "name": "Neon",
+  "official": true,
+  "summary": "Create Neon Postgres projects and branches, run queries and plan migrations.",
+  "tags": [
+    "postgres",
+    "serverless",
+    "branches"
+  ],
+  "transport": [
+    "stdio",
+    "http"
+  ],
+  "url": "https://github.com/neondatabase/mcp-server-neon"
+}

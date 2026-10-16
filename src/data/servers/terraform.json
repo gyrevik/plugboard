@@ -1,0 +1,19 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "none",
+  "category": "cloud",
+  "lang": "Go",
+  "maintainer": "HashiCorp",
+  "name": "Terraform",
+  "official": true,
+  "summary": "Look up Terraform Registry providers and modules so agents write accurate IaC.",
+  "tags": [
+    "iac",
+    "registry",
+    "providers"
+  ],
+  "transport": [
+    "stdio"
+  ],
+  "url": "https://github.com/hashicorp/terraform-mcp-server"
+}

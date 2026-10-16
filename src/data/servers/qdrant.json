@@ -1,0 +1,19 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "api-key",
+  "category": "data",
+  "lang": "Python",
+  "maintainer": "Qdrant",
+  "name": "Qdrant",
+  "official": true,
+  "summary": "Store and retrieve memories as embeddings in a Qdrant vector database.",
+  "tags": [
+    "vectors",
+    "semantic-search",
+    "memory"
+  ],
+  "transport": [
+    "stdio"
+  ],
+  "url": "https://github.com/qdrant/mcp-server-qdrant"
+}

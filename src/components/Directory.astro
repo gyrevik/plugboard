@@ -1,0 +1,126 @@
+---
+import CategoryRail from "./CategoryRail.astro";
+import ServerRow from "./ServerRow.astro";
+import type { Server } from "../data/servers";
+
+interface Props {
+  servers: Server[];
+  current: string;
+  heading: string;
+}
+const { servers, current, heading } = Astro.props;
+---
+
+<div class="searchrow">
+  <div class="search">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+    <input id="q" type="search" placeholder="Search servers, vendors, tags…" aria-label="Search servers" />
+  </div>
+  <select id="sort" aria-label="Sort">
+    <option value="name">A–Z</option>
+    <option value="newest">Recently added</option>
+  </select>
+  <a class="btn primary" href="/submit/">Submit a server</a>
+</div>
+
+<div class="layout">
+  <aside class="rail" aria-label="Filters">
+    <CategoryRail current={current} />
+    <div class="nojs-hide js-show">
+      <h2>Runs as</h2>
+      <div class="seg" data-filter="transport">
+        <button type="button" data-v="any" aria-pressed="true">Any</button>
+        <button type="button" data-v="stdio" aria-pressed="false">Local (stdio)</button>
+        <button type="button" data-v="http" aria-pressed="false">Remote (HTTP)</button>
+      </div>
+    </div>
+    <div class="nojs-hide js-show">
+      <h2>Sign-in</h2>
+      <div class="seg" data-filter="auth">
+        <button type="button" data-v="any" aria-pressed="true">Any</button>
+        <button type="button" data-v="none" aria-pressed="false">None</button>
+        <button type="button" data-v="oauth" aria-pressed="false">OAuth</button>
+        <button type="button" data-v="api-key" aria-pressed="false">API key</button>
+        <button type="button" data-v="credentials" aria-pressed="false">Own credentials</button>
+      </div>
+    </div>
+    <label class="toggle nojs-hide js-show"><input id="f-official" type="checkbox" /> Vendor-built only</label>
+  </aside>
+
+  <main>
+    <div class="resulthead">
+      <h2>{heading}</h2>
+      <span class="count" id="r-count">{servers.length} servers</span>
+    </div>
+    <div class="rack" id="rack">
+      {servers.map((s) => <ServerRow server={s} />)}
+      <div class="empty" id="no-match" hidden><strong>No servers match</strong>Try a broader search or clear a filter.</div>
+    </div>
+  </main>
+</div>
+
+<script>
+  type Filters = { q: string; transport: string; auth: string; official: boolean; sort: string };
+  const KEY = "plugboard:filters";
+  const state: Filters = { q: "", transport: "any", auth: "any", official: false, sort: "name" };
+  try {
+    const saved = JSON.parse(localStorage.getItem(KEY) || "null");
+    if (saved) Object.assign(state, saved, { q: "" });
+  } catch {}
+
+  const rack = document.getElementById("rack")!;
+  const rows = [...rack.querySelectorAll<HTMLElement>("[data-server]")];
+  const q = document.getElementById("q") as HTMLInputElement;
+  const sort = document.getElementById("sort") as HTMLSelectElement;
+  const official = document.getElementById("f-official") as HTMLInputElement;
+  const count = document.getElementById("r-count")!;
+  const noMatch = document.getElementById("no-match")!;
+  document.querySelectorAll(".js-show").forEach((el) => el.classList.remove("nojs-hide"));
+
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify({ ...state, q: "" })); } catch {}
+  }
+
+  function apply() {
+    const words = state.q.toLowerCase().split(/\s+/).filter(Boolean);
+    let shown = 0;
+    for (const r of rows) {
+      const d = r.dataset;
+      const ok =
+        (state.transport === "any" || d.transport!.split(" ").includes(state.transport)) &&
+        (state.auth === "any" || d.auth === state.auth) &&
+        (!state.official || d.official === "1") &&
+        words.every((w) => d.search!.includes(w));
+      r.hidden = !ok;
+      if (ok) shown++;
+    }
+    const sorted = [...rows].sort(
+      state.sort === "newest"
+        ? (a, b) => b.dataset.added!.localeCompare(a.dataset.added!) || a.dataset.name!.localeCompare(b.dataset.name!)
+        : (a, b) => a.dataset.name!.localeCompare(b.dataset.name!),
+    );
+    sorted.forEach((r) => rack.insertBefore(r, noMatch));
+    count.textContent = shown === rows.length ? `${rows.length} servers` : `${shown} of ${rows.length}`;
+    noMatch.hidden = shown > 0;
+    document.querySelectorAll<HTMLElement>("[data-filter]").forEach((group) => {
+      const key = group.dataset.filter as "transport" | "auth";
+      group.querySelectorAll<HTMLButtonElement>("button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.v === state[key])));
+    });
+    official.checked = state.official;
+    sort.value = state.sort;
+  }
+
+  q.addEventListener("input", () => { state.q = q.value; apply(); });
+  sort.addEventListener("change", () => { state.sort = sort.value; save(); apply(); });
+  official.addEventListener("change", () => { state.official = official.checked; save(); apply(); });
+  document.querySelectorAll<HTMLElement>("[data-filter]").forEach((group) =>
+    group.addEventListener("click", (e) => {
+      const b = (e.target as HTMLElement).closest<HTMLButtonElement>("button[data-v]");
+      if (!b) return;
+      state[group.dataset.filter as "transport" | "auth"] = b.dataset.v!;
+      save();
+      apply();
+    }),
+  );
+  apply();
+</script>

@@ -1,0 +1,37 @@
+---
+import Ports from "./Ports.astro";
+import { CATEGORY } from "../data/categories";
+import { AUTH_SHORT, type Server } from "../data/servers";
+
+interface Props { server: Server }
+const { server: s } = Astro.props;
+const cat = CATEGORY[s.category];
+// Search text and filter values for the client-side filter on the home page
+const haystack = [s.name, s.maintainer, s.summary, s.tags.join(" "), cat.label].join(" ").toLowerCase();
+---
+
+<a
+  class="row"
+  href={`/servers/${s.slug}/`}
+  data-server
+  data-cat={s.category}
+  data-transport={s.transport.join(" ")}
+  data-auth={s.auth}
+  data-official={s.official ? "1" : "0"}
+  data-added={s.addedAt}
+  data-name={s.name}
+  data-search={haystack}
+>
+  <div class="nameline">
+    <h3>{s.name}</h3>
+    <span class="by">by {s.maintainer}</span>
+    {s.official && <span class="stamp">Vendor-built</span>}
+  </div>
+  <Ports transport={s.transport} />
+  <p class="summary">{s.summary}</p>
+  <div class="meta">
+    <span class="cat"><span class="plug" style={`--cc: var(${cat.color})`}></span>{cat.label}</span>
+    <span class="auth">{AUTH_SHORT[s.auth]}</span>
+    {s.lang && <span class="mono">{s.lang}</span>}
+  </div>
+</a>

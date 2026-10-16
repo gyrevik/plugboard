@@ -1,0 +1,22 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "oauth",
+  "category": "dev",
+  "endpoint": "https://api.githubcopilot.com/mcp/",
+  "lang": "Go",
+  "maintainer": "GitHub",
+  "name": "GitHub",
+  "official": true,
+  "summary": "Read and manage repositories, issues, pull requests, Actions runs and code search.",
+  "tags": [
+    "git",
+    "issues",
+    "pull-requests",
+    "ci"
+  ],
+  "transport": [
+    "stdio",
+    "http"
+  ],
+  "url": "https://github.com/github/github-mcp-server"
+}

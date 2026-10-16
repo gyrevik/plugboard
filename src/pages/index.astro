@@ -1,0 +1,31 @@
+---
+import Base from "../layouts/Base.astro";
+import Directory from "../components/Directory.astro";
+import { SERVERS } from "../data/servers";
+import { SITE_NAME, SITE_TAGLINE } from "../config";
+
+const remote = SERVERS.filter((s) => s.transport.includes("http")).length;
+const official = SERVERS.filter((s) => s.official).length;
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: SITE_NAME,
+  url: Astro.site?.href,
+  description: SITE_TAGLINE,
+};
+---
+
+<Base title={SITE_NAME} description={`${SERVERS.length} MCP servers, filterable by category, transport and sign-in method.`} schema={schema} nav="directory">
+  <header class="top">
+    <div>
+      <h1>Find an MCP server for the tools you already use</h1>
+      <p>{SITE_TAGLINE}</p>
+    </div>
+    <div class="meters" aria-label="Directory totals">
+      <div class="meter"><b>{SERVERS.length}</b><span>Servers</span></div>
+      <div class="meter"><b>{remote}</b><span>Remote (HTTP)</span></div>
+      <div class="meter"><b>{official}</b><span>Vendor-built</span></div>
+    </div>
+  </header>
+  <Directory servers={SERVERS} current="all" heading="All servers" />
+</Base>

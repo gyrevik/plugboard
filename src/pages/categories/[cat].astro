@@ -1,0 +1,45 @@
+---
+import Base from "../../layouts/Base.astro";
+import Directory from "../../components/Directory.astro";
+import { CATEGORIES, type Category } from "../../data/categories";
+import { serversIn } from "../../data/servers";
+
+export function getStaticPaths() {
+  return CATEGORIES.filter((c) => serversIn(c.id).length > 0).map((c) => ({ params: { cat: c.id }, props: { category: c } }));
+}
+
+const { category } = Astro.props as { category: Category };
+const servers = serversIn(category.id);
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: `${category.label} MCP servers`,
+  numberOfItems: servers.length,
+  itemListElement: servers.map((s, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    url: new URL(`/servers/${s.slug}/`, Astro.site).href,
+    name: s.name,
+  })),
+};
+---
+
+<Base
+  title={`${category.label} MCP servers`}
+  description={`${servers.length} MCP servers for ${category.label.toLowerCase()}. ${category.blurb}`}
+  schema={schema}
+  nav="directory"
+>
+  <header class="top">
+    <div>
+      <div class="crumbs"><a href="/">Directory</a> / {category.label}</div>
+      <h1>{category.label} MCP servers</h1>
+      <p>{category.blurb}</p>
+    </div>
+    <div class="meters">
+      <div class="meter"><b>{servers.length}</b><span>Servers</span></div>
+      <div class="meter"><b>{servers.filter((s) => s.transport.includes("http")).length}</b><span>Remote (HTTP)</span></div>
+    </div>
+  </header>
+  <Directory servers={servers} current={category.id} heading={category.label} />
+</Base>

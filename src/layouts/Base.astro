@@ -1,0 +1,62 @@
+---
+import "../styles/global.css";
+import { SITE_NAME, REPO_URL } from "../config";
+
+interface Props {
+  title: string;
+  description: string;
+  /** JSON-LD object for this page */
+  schema?: Record<string, unknown>;
+  nav?: "directory" | "submit";
+}
+
+const { title, description, schema, nav } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const fullTitle = title === SITE_NAME ? title : `${title} · ${SITE_NAME}`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Schibsted+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    />
+    {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="sitebar">
+        <a class="logo" href="/">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="6" cy="6" r="3"></circle><circle cx="18" cy="18" r="3"></circle><path d="M6 9v3a6 6 0 0 0 6 6h3"></path></svg>
+          {SITE_NAME}
+        </a>
+        <nav aria-label="Site">
+          <a href="/" aria-current={nav === "directory" ? "page" : undefined}>Directory</a>
+          <a href="/submit/" aria-current={nav === "submit" ? "page" : undefined}>Submit a server</a>
+          <a href={REPO_URL}>GitHub</a>
+        </nav>
+      </div>
+      <slot />
+      <footer class="site">
+        <span>Listings are curated. Endpoints and sign-in methods change; check the linked source before you connect anything.</span>
+        <span><a href="/sitemap-index.xml">Sitemap</a></span>
+      </footer>
+    </div>
+  </body>
+</html>

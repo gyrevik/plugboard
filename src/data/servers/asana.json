@@ -1,0 +1,17 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "oauth",
+  "category": "work",
+  "maintainer": "Asana",
+  "name": "Asana",
+  "official": true,
+  "summary": "Read and manage Asana tasks, projects and goals.",
+  "tags": [
+    "tasks",
+    "projects"
+  ],
+  "transport": [
+    "http"
+  ],
+  "url": "https://developers.asana.com/docs/using-asanas-mcp-server"
+}

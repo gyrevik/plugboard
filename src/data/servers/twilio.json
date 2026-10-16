@@ -1,0 +1,19 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "api-key",
+  "category": "automation",
+  "lang": "TypeScript",
+  "maintainer": "Twilio Labs",
+  "name": "Twilio",
+  "official": true,
+  "summary": "Call Twilio APIs for SMS, voice and messaging from an agent.",
+  "tags": [
+    "sms",
+    "voice",
+    "messaging"
+  ],
+  "transport": [
+    "stdio"
+  ],
+  "url": "https://github.com/twilio-labs/mcp"
+}

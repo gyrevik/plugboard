@@ -1,0 +1,18 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "api-key",
+  "category": "cloud",
+  "lang": "TypeScript",
+  "maintainer": "Heroku",
+  "name": "Heroku",
+  "official": true,
+  "summary": "Manage Heroku apps, dynos, add-ons and Postgres from an agent.",
+  "tags": [
+    "paas",
+    "deployments"
+  ],
+  "transport": [
+    "stdio"
+  ],
+  "url": "https://github.com/heroku/heroku-mcp-server"
+}

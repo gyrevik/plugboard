@@ -1,0 +1,19 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "none",
+  "category": "commerce",
+  "lang": "TypeScript",
+  "maintainer": "Shopify",
+  "name": "Shopify Dev",
+  "official": true,
+  "summary": "Search Shopify dev docs and introspect the Admin GraphQL schema while building apps.",
+  "tags": [
+    "ecommerce",
+    "graphql",
+    "docs"
+  ],
+  "transport": [
+    "stdio"
+  ],
+  "url": "https://github.com/Shopify/dev-mcp"
+}

@@ -1,0 +1,21 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "oauth",
+  "category": "data",
+  "endpoint": "https://mcp.supabase.com/mcp",
+  "lang": "TypeScript",
+  "maintainer": "Supabase",
+  "name": "Supabase",
+  "official": true,
+  "summary": "Manage Supabase projects: run SQL, apply migrations, read logs and generate types.",
+  "tags": [
+    "postgres",
+    "sql",
+    "migrations"
+  ],
+  "transport": [
+    "stdio",
+    "http"
+  ],
+  "url": "https://github.com/supabase-community/supabase-mcp"
+}

@@ -1,0 +1,19 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "oauth",
+  "category": "cloud",
+  "endpoint": "https://mcp.vercel.com",
+  "maintainer": "Vercel",
+  "name": "Vercel",
+  "official": true,
+  "summary": "Search Vercel docs and inspect projects, deployments and logs.",
+  "tags": [
+    "deployments",
+    "hosting",
+    "logs"
+  ],
+  "transport": [
+    "http"
+  ],
+  "url": "https://vercel.com/docs/mcp/vercel-mcp"
+}

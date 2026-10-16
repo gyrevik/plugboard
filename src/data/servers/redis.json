@@ -1,0 +1,19 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "credentials",
+  "category": "data",
+  "lang": "Python",
+  "maintainer": "Redis",
+  "name": "Redis",
+  "official": true,
+  "summary": "Read and write Redis data structures in natural language: strings, hashes, streams, vectors.",
+  "tags": [
+    "cache",
+    "key-value",
+    "vectors"
+  ],
+  "transport": [
+    "stdio"
+  ],
+  "url": "https://github.com/redis/mcp-redis"
+}

@@ -1,0 +1,129 @@
+---
+import Base from "../../layouts/Base.astro";
+import Ports from "../../components/Ports.astro";
+import { CATEGORY } from "../../data/categories";
+import { SERVERS, AUTH_LONG, AUTH_SHORT, type Server } from "../../data/servers";
+import { REPO_URL } from "../../config";
+
+export function getStaticPaths() {
+  return SERVERS.map((s) => ({ params: { slug: s.slug }, props: { server: s } }));
+}
+
+const { server: s } = Astro.props as { server: Server };
+const cat = CATEGORY[s.category];
+const related = SERVERS.filter((x) => x.category === s.category && x.slug !== s.slug).slice(0, 6);
+const sourceLabel = s.url.replace(/^https?:\/\//, "").replace(/\/$/, "");
+const snippet = s.endpoint
+  ? JSON.stringify({ mcpServers: { [s.slug]: { type: "http", url: s.endpoint } } }, null, 2)
+  : null;
+const runsAs = s.transport.map((t) => (t === "stdio" ? "Local process (stdio)" : "Remote server (HTTP)")).join(", ");
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: `${s.name} MCP server`,
+  description: s.summary,
+  applicationCategory: "DeveloperApplication",
+  operatingSystem: "Any",
+  url: s.url,
+  author: { "@type": "Organization", name: s.maintainer },
+  ...(s.lang ? { programmingLanguage: s.lang } : {}),
+  keywords: s.tags.join(", "),
+};
+---
+
+<Base
+  title={`${s.name} MCP server`}
+  description={`${s.summary} Runs as ${runsAs.toLowerCase()}; sign-in: ${AUTH_SHORT[s.auth]}.`}
+  schema={schema}
+  nav="directory"
+>
+  <header class="top">
+    <div>
+      <div class="crumbs"><a href="/">Directory</a> / <a href={`/categories/${cat.id}/`}>{cat.label}</a> / {s.name}</div>
+      <h1>{s.name} MCP server</h1>
+      <p>{s.summary}</p>
+    </div>
+    <Ports transport={s.transport} />
+  </header>
+
+  <div class="detail">
+    <div class="stack">
+      <section class="sheet">
+        <h2>Details</h2>
+        <dl class="kv">
+          <dt>Maintainer</dt>
+          <dd>{s.maintainer}{s.official && <> <span class="stamp">Vendor-built</span></>}</dd>
+          <dt>Source</dt>
+          <dd><a href={s.url} rel="noopener">{sourceLabel}</a></dd>
+          {s.endpoint && (
+            <>
+              <dt>Endpoint</dt>
+              <dd class="endpoint"><code id="ep">{s.endpoint}</code><button class="btn small" type="button" data-copy={s.endpoint}>Copy</button></dd>
+            </>
+          )}
+          <dt>Runs as</dt>
+          <dd>{runsAs}</dd>
+          <dt>Sign-in</dt>
+          <dd>{AUTH_LONG[s.auth]}</dd>
+          {s.lang && (<><dt>Language</dt><dd>{s.lang}</dd></>)}
+          <dt>Category</dt>
+          <dd><a href={`/categories/${cat.id}/`}>{cat.label}</a></dd>
+          <dt>Listed</dt>
+          <dd><time datetime={s.addedAt}>{s.addedAt}</time></dd>
+        </dl>
+      </section>
+
+      <section class="sheet">
+        <h2>Connect it</h2>
+        {snippet ? (
+          <div class="stack">
+            <p class="muted" style="margin:0">Add the remote endpoint to an MCP client. For example, in a project's <code>.mcp.json</code>:</p>
+            <pre class="snippet"><code>{snippet}</code></pre>
+            {s.transport.includes("stdio") && <p class="muted" style="margin:0">It can also run locally. See the <a href={s.url} rel="noopener">source</a> for install steps.</p>}
+          </div>
+        ) : (
+          <p class="muted" style="margin:0">This server runs on your machine. Install and configuration steps are in the <a href={s.url} rel="noopener">source repository</a>.</p>
+        )}
+      </section>
+
+      {s.tags.length > 0 && <div class="tags">{s.tags.map((t) => <span class="tag">{t}</span>)}</div>}
+    </div>
+
+    <aside class="stack">
+      {related.length > 0 && (
+        <section class="sheet">
+          <h2>More in {cat.label}</h2>
+          <ul class="related">
+            {related.map((r) => (
+              <li><a href={`/servers/${r.slug}/`}><span class="plug" style={`--cc: var(${cat.color})`}></span>{r.name}</a></li>
+            ))}
+          </ul>
+        </section>
+      )}
+      <section class="sheet">
+        <h2>Something wrong?</h2>
+        <p class="muted" style="margin:0 0 12px">Listings are plain JSON files. Fix this one directly on GitHub.</p>
+        <a class="btn small" href={`${REPO_URL}/edit/main/src/data/servers/${s.slug}.json`}>Edit this listing</a>
+      </section>
+    </aside>
+  </div>
+</Base>
+
+<script>
+  document.addEventListener("click", async (e) => {
+    const b = (e.target as HTMLElement).closest<HTMLButtonElement>("button[data-copy]");
+    if (!b) return;
+    try {
+      await navigator.clipboard.writeText(b.dataset.copy!);
+      b.textContent = "Copied";
+    } catch {
+      const r = document.createRange();
+      r.selectNodeContents(document.getElementById("ep")!);
+      getSelection()?.removeAllRanges();
+      getSelection()?.addRange(r);
+      b.textContent = "Selected";
+    }
+    setTimeout(() => (b.textContent = "Copy"), 1600);
+  });
+</script>

@@ -1,0 +1,19 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "oauth",
+  "category": "creative",
+  "endpoint": "https://huggingface.co/mcp",
+  "maintainer": "Hugging Face",
+  "name": "Hugging Face",
+  "official": true,
+  "summary": "Search models, datasets, papers and Spaces, and call Gradio Spaces as tools.",
+  "tags": [
+    "models",
+    "datasets",
+    "spaces"
+  ],
+  "transport": [
+    "http"
+  ],
+  "url": "https://huggingface.co/mcp"
+}

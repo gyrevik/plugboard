@@ -1,0 +1,11 @@
+---
+import type { Transport } from "../data/servers";
+
+interface Props { transport: Transport[] }
+const { transport } = Astro.props;
+---
+
+<div class="ports" aria-label={`Runs as: ${transport.map((t) => (t === "stdio" ? "local" : "remote")).join(" and ")}`}>
+  <span class:list={["port", { on: transport.includes("stdio") }]} title="Local (stdio)"><span class="jack"></span>STDIO</span>
+  <span class:list={["port", { on: transport.includes("http") }]} title="Remote (HTTP)"><span class="jack"></span>HTTP</span>
+</div>

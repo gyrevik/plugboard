@@ -1,0 +1,19 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "none",
+  "category": "reference",
+  "lang": "TypeScript",
+  "maintainer": "MCP steering group",
+  "name": "Memory",
+  "official": true,
+  "summary": "Persistent memory as a local knowledge graph of entities and relations.",
+  "tags": [
+    "memory",
+    "knowledge-graph",
+    "reference"
+  ],
+  "transport": [
+    "stdio"
+  ],
+  "url": "https://github.com/modelcontextprotocol/servers/tree/main/src/memory"
+}

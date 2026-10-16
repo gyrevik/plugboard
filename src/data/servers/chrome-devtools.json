@@ -1,0 +1,19 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "none",
+  "category": "browser",
+  "lang": "TypeScript",
+  "maintainer": "Google Chrome DevTools team",
+  "name": "Chrome DevTools",
+  "official": true,
+  "summary": "Control Chrome and inspect it with DevTools: network, console, performance traces.",
+  "tags": [
+    "browser",
+    "debugging",
+    "performance"
+  ],
+  "transport": [
+    "stdio"
+  ],
+  "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp"
+}

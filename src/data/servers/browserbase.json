@@ -1,0 +1,19 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "api-key",
+  "category": "browser",
+  "lang": "TypeScript",
+  "maintainer": "Browserbase",
+  "name": "Browserbase",
+  "official": true,
+  "summary": "Run browser automation in Browserbase's cloud browsers, with Stagehand actions.",
+  "tags": [
+    "browser",
+    "cloud",
+    "stagehand"
+  ],
+  "transport": [
+    "stdio"
+  ],
+  "url": "https://github.com/browserbase/mcp-server-browserbase"
+}

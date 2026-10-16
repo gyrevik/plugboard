@@ -1,0 +1,18 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "api-key",
+  "category": "automation",
+  "maintainer": "Zapier",
+  "name": "Zapier",
+  "official": true,
+  "summary": "Expose actions across thousands of Zapier-connected apps to an agent through a personal server URL.",
+  "tags": [
+    "integrations",
+    "workflows",
+    "no-code"
+  ],
+  "transport": [
+    "http"
+  ],
+  "url": "https://zapier.com/mcp"
+}

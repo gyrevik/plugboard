@@ -1,0 +1,21 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "oauth",
+  "category": "dev",
+  "endpoint": "https://mcp.sentry.dev/mcp",
+  "lang": "TypeScript",
+  "maintainer": "Sentry",
+  "name": "Sentry",
+  "official": true,
+  "summary": "Look up errors, issues and stack traces from Sentry projects and hand them to an agent for debugging.",
+  "tags": [
+    "errors",
+    "debugging",
+    "observability"
+  ],
+  "transport": [
+    "stdio",
+    "http"
+  ],
+  "url": "https://github.com/getsentry/sentry-mcp"
+}

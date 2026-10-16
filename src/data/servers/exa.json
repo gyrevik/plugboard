@@ -1,0 +1,19 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "api-key",
+  "category": "search",
+  "lang": "TypeScript",
+  "maintainer": "Exa",
+  "name": "Exa",
+  "official": true,
+  "summary": "Neural web search and page content retrieval tuned for AI agents.",
+  "tags": [
+    "web-search",
+    "research"
+  ],
+  "transport": [
+    "stdio",
+    "http"
+  ],
+  "url": "https://github.com/exa-labs/exa-mcp-server"
+}

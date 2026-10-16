@@ -1,0 +1,19 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "oauth",
+  "category": "work",
+  "maintainer": "Atlassian",
+  "name": "Atlassian (Jira & Confluence)",
+  "official": true,
+  "summary": "Search and update Jira issues and Confluence pages from an agent.",
+  "tags": [
+    "jira",
+    "confluence",
+    "wiki",
+    "tickets"
+  ],
+  "transport": [
+    "http"
+  ],
+  "url": "https://www.atlassian.com/platform/remote-mcp-server"
+}

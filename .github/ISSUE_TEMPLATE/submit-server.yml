@@ -1,0 +1,41 @@
+name: Submit a server
+description: Suggest an MCP server for the directory
+title: "Add server: "
+labels: ["submission"]
+body:
+  - type: input
+    id: name
+    attributes: { label: Server name }
+    validations: { required: true }
+  - type: input
+    id: url
+    attributes: { label: Repository or docs link }
+    validations: { required: true }
+  - type: input
+    id: maintainer
+    attributes: { label: Maintained by }
+  - type: textarea
+    id: summary
+    attributes: { label: What it does, description: One or two sentences on what an agent can do with it. }
+    validations: { required: true }
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options: [dev, work, browser, search, data, cloud, commerce, automation, creative, reference]
+    validations: { required: true }
+  - type: checkboxes
+    id: transport
+    attributes:
+      label: Runs as
+      options:
+        - label: Local (stdio)
+        - label: Remote (HTTP)
+  - type: dropdown
+    id: auth
+    attributes:
+      label: Sign-in
+      options: [none, oauth, api-key, credentials]
+  - type: input
+    id: endpoint
+    attributes: { label: Remote endpoint (optional) }

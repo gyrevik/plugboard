@@ -1,0 +1,19 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "none",
+  "category": "dev",
+  "lang": "Go",
+  "maintainer": "Docker",
+  "name": "Docker MCP Gateway",
+  "official": true,
+  "summary": "Run containerized MCP servers behind one gateway, with Docker Desktop's MCP Toolkit catalog.",
+  "tags": [
+    "containers",
+    "gateway",
+    "catalog"
+  ],
+  "transport": [
+    "stdio"
+  ],
+  "url": "https://github.com/docker/mcp-gateway"
+}

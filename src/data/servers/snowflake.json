@@ -1,0 +1,19 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "credentials",
+  "category": "data",
+  "lang": "Python",
+  "maintainer": "Snowflake Labs",
+  "name": "Snowflake",
+  "official": true,
+  "summary": "Query Snowflake, use Cortex Search and Cortex Analyst, and manage objects.",
+  "tags": [
+    "warehouse",
+    "sql",
+    "cortex"
+  ],
+  "transport": [
+    "stdio"
+  ],
+  "url": "https://github.com/Snowflake-Labs/mcp"
+}

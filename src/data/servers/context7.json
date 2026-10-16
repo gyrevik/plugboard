@@ -1,0 +1,21 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "none",
+  "category": "search",
+  "endpoint": "https://mcp.context7.com/mcp",
+  "lang": "TypeScript",
+  "maintainer": "Upstash",
+  "name": "Context7",
+  "official": true,
+  "summary": "Pulls current, version-specific library documentation into the agent's context.",
+  "tags": [
+    "docs",
+    "libraries",
+    "coding"
+  ],
+  "transport": [
+    "stdio",
+    "http"
+  ],
+  "url": "https://github.com/upstash/context7"
+}

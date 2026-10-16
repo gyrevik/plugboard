@@ -1,0 +1,19 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "none",
+  "category": "data",
+  "lang": "Python",
+  "maintainer": "Chroma",
+  "name": "Chroma",
+  "official": true,
+  "summary": "Create collections and run vector and full-text search over Chroma.",
+  "tags": [
+    "vectors",
+    "embeddings",
+    "retrieval"
+  ],
+  "transport": [
+    "stdio"
+  ],
+  "url": "https://github.com/chroma-core/chroma-mcp"
+}

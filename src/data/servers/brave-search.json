@@ -1,0 +1,18 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "api-key",
+  "category": "search",
+  "lang": "TypeScript",
+  "maintainer": "Brave",
+  "name": "Brave Search",
+  "official": true,
+  "summary": "Web, news, image and local search through the Brave Search API.",
+  "tags": [
+    "web-search",
+    "news"
+  ],
+  "transport": [
+    "stdio"
+  ],
+  "url": "https://github.com/brave/brave-search-mcp-server"
+}

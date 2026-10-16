@@ -1,0 +1,57 @@
+---
+import Base from "../layouts/Base.astro";
+import { CATEGORIES } from "../data/categories";
+import { REPO_URL } from "../config";
+
+const issueUrl = `${REPO_URL}/issues/new?template=submit-server.yml`;
+const example = JSON.stringify(
+  {
+    name: "Linear",
+    maintainer: "Linear",
+    official: true,
+    category: "work",
+    transport: ["http"],
+    auth: "oauth",
+    url: "https://linear.app/docs/mcp",
+    endpoint: "https://mcp.linear.app/mcp",
+    summary: "Find, create and update Linear issues, projects and comments.",
+    tags: ["issues", "projects"],
+    addedAt: "2026-10-15",
+  },
+  null,
+  2,
+);
+---
+
+<Base title="Submit a server" description="Add an MCP server to the directory by opening an issue or a pull request." nav="submit">
+  <header class="top">
+    <div>
+      <div class="crumbs"><a href="/">Directory</a> / Submit</div>
+      <h1>Submit a server</h1>
+      <p>Know an MCP server that belongs here? There are two ways to add it. Both are reviewed before the listing goes live.</p>
+    </div>
+  </header>
+
+  <div class="prose">
+    <h2>The quick way: open an issue</h2>
+    <p>Fill in a short form on GitHub with the server's name, link and what it does. A maintainer turns it into a listing.</p>
+    <p><a class="btn primary" href={issueUrl}>Open a submission form</a></p>
+
+    <h2>The direct way: open a pull request</h2>
+    <ol>
+      <li>Add a file at <code>src/data/servers/&lt;name&gt;.json</code>. Use lowercase letters, digits and dashes for the file name; it becomes the page URL.</li>
+      <li>Fill it in like the example below. The build checks every field and tells you what's missing.</li>
+      <li>Open the pull request. The site rebuilds once it's merged.</li>
+    </ol>
+    <pre class="snippet"><code>{example}</code></pre>
+
+    <h2>Field reference</h2>
+    <ul>
+      <li><code>category</code>: one of {CATEGORIES.map((c, i) => <>{i > 0 && ", "}<code>{c.id}</code></>)}</li>
+      <li><code>transport</code>: <code>"stdio"</code> for servers that run on your machine, <code>"http"</code> for remote servers, or both</li>
+      <li><code>auth</code>: <code>none</code>, <code>oauth</code>, <code>api-key</code> or <code>credentials</code> (a connection string or cloud login)</li>
+      <li><code>official</code>: <code>true</code> only when the company behind the product maintains the server</li>
+      <li><code>endpoint</code> (optional): the remote server URL, if it has one</li>
+    </ul>
+  </div>
+</Base>

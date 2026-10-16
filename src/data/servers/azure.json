@@ -1,0 +1,18 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "credentials",
+  "category": "cloud",
+  "lang": "C#",
+  "maintainer": "Microsoft",
+  "name": "Azure MCP Server",
+  "official": true,
+  "summary": "Work with Azure resources: storage, Cosmos DB, monitoring, Key Vault and more.",
+  "tags": [
+    "azure",
+    "resources"
+  ],
+  "transport": [
+    "stdio"
+  ],
+  "url": "https://github.com/microsoft/mcp"
+}

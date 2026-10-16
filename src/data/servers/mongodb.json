@@ -1,0 +1,18 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "credentials",
+  "category": "data",
+  "lang": "TypeScript",
+  "maintainer": "MongoDB",
+  "name": "MongoDB",
+  "official": true,
+  "summary": "Query and manage MongoDB databases and Atlas clusters.",
+  "tags": [
+    "nosql",
+    "atlas"
+  ],
+  "transport": [
+    "stdio"
+  ],
+  "url": "https://github.com/mongodb-js/mongodb-mcp-server"
+}

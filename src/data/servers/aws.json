@@ -1,0 +1,19 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "credentials",
+  "category": "cloud",
+  "lang": "Python",
+  "maintainer": "AWS Labs",
+  "name": "AWS MCP Servers",
+  "official": true,
+  "summary": "A suite of servers for AWS docs, CDK, cost analysis, Lambda, DynamoDB and more.",
+  "tags": [
+    "aws",
+    "iac",
+    "docs"
+  ],
+  "transport": [
+    "stdio"
+  ],
+  "url": "https://github.com/awslabs/mcp"
+}

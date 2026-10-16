@@ -1,0 +1,21 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "oauth",
+  "category": "work",
+  "endpoint": "https://mcp.notion.com/mcp",
+  "lang": "TypeScript",
+  "maintainer": "Notion",
+  "name": "Notion",
+  "official": true,
+  "summary": "Search, read and edit Notion pages and databases.",
+  "tags": [
+    "notes",
+    "wiki",
+    "databases"
+  ],
+  "transport": [
+    "stdio",
+    "http"
+  ],
+  "url": "https://github.com/makenotion/notion-mcp-server"
+}

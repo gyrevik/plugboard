@@ -1,0 +1,19 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "oauth",
+  "category": "cloud",
+  "lang": "TypeScript",
+  "maintainer": "Cloudflare",
+  "name": "Cloudflare",
+  "official": true,
+  "summary": "A set of remote servers for Workers, observability, DNS analytics, Radar and Cloudflare docs.",
+  "tags": [
+    "workers",
+    "edge",
+    "dns"
+  ],
+  "transport": [
+    "http"
+  ],
+  "url": "https://github.com/cloudflare/mcp-server-cloudflare"
+}

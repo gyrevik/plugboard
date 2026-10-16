@@ -1,0 +1,19 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "oauth",
+  "category": "work",
+  "endpoint": "https://mcp.linear.app/mcp",
+  "maintainer": "Linear",
+  "name": "Linear",
+  "official": true,
+  "summary": "Find, create and update Linear issues, projects and comments.",
+  "tags": [
+    "issues",
+    "projects",
+    "tickets"
+  ],
+  "transport": [
+    "http"
+  ],
+  "url": "https://linear.app/docs/mcp"
+}

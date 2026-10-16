@@ -1,0 +1,19 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "api-key",
+  "category": "search",
+  "lang": "TypeScript",
+  "maintainer": "Firecrawl",
+  "name": "Firecrawl",
+  "official": true,
+  "summary": "Scrape, crawl and extract structured data from websites.",
+  "tags": [
+    "scraping",
+    "crawling",
+    "extraction"
+  ],
+  "transport": [
+    "stdio"
+  ],
+  "url": "https://github.com/firecrawl/firecrawl-mcp-server"
+}

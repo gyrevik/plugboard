@@ -1,0 +1,18 @@
+{
+  "addedAt": "2026-10-15",
+  "auth": "api-key",
+  "category": "commerce",
+  "lang": "TypeScript",
+  "maintainer": "PayPal",
+  "name": "PayPal",
+  "official": true,
+  "summary": "Create invoices, orders and subscriptions and look up transactions through PayPal APIs.",
+  "tags": [
+    "payments",
+    "invoices"
+  ],
+  "transport": [
+    "stdio"
+  ],
+  "url": "https://github.com/paypal/agent-toolkit"
+}
