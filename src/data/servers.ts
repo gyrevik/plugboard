@@ -18,6 +18,8 @@ export interface Server {
   summary: string;
   tags: string[];
   addedAt: string;
+  /** Last date someone confirmed the details against the source */
+  checkedAt?: string;
 }
 
 export const AUTH_SHORT: Record<Auth, string> = {
@@ -47,7 +49,7 @@ function validate(slug: string, d: any): Server {
   if (!Array.isArray(d.transport) || !d.transport.length || d.transport.some((t: string) => !TRANSPORTS.has(t)))
     problems.push(`"transport" must list "stdio" and/or "http"`);
   for (const k of ["url", "endpoint"]) if (d[k] && !/^https?:\/\//.test(d[k])) problems.push(`"${k}" must start with http(s)://`);
-  if (d.addedAt && !/^\d{4}-\d{2}-\d{2}$/.test(d.addedAt)) problems.push(`"addedAt" must be YYYY-MM-DD`);
+  for (const k of ["addedAt", "checkedAt"]) if (d[k] && !/^\d{4}-\d{2}-\d{2}$/.test(d[k])) problems.push(`"${k}" must be YYYY-MM-DD`);
   if (!/^[a-z0-9-]+$/.test(slug)) problems.push(`file name must be lowercase letters, digits and dashes`);
   if (problems.length) throw new Error(`src/data/servers/${slug}.json: ${problems.join("; ")}`);
   return { official: false, tags: [], ...d, slug };

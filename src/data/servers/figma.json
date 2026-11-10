@@ -2,6 +2,8 @@
   "addedAt": "2026-10-15",
   "auth": "oauth",
   "category": "creative",
+  "checkedAt": "2026-11-10",
+  "endpoint": "https://mcp.figma.com/mcp",
   "maintainer": "Figma",
   "name": "Figma",
   "official": true,
@@ -13,5 +15,5 @@
   "transport": [
     "http"
   ],
-  "url": "https://help.figma.com/hc/en-us/articles/32132100833559"
+  "url": "https://developers.figma.com/docs/figma-mcp-server/"
 }

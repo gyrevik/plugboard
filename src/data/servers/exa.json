@@ -1,7 +1,9 @@
 {
   "addedAt": "2026-10-15",
-  "auth": "api-key",
+  "auth": "none",
   "category": "search",
+  "checkedAt": "2026-11-10",
+  "endpoint": "https://mcp.exa.ai/mcp",
   "lang": "TypeScript",
   "maintainer": "Exa",
   "name": "Exa",

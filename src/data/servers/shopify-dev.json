@@ -2,6 +2,7 @@
   "addedAt": "2026-10-15",
   "auth": "none",
   "category": "commerce",
+  "checkedAt": "2026-11-10",
   "lang": "TypeScript",
   "maintainer": "Shopify",
   "name": "Shopify Dev",
@@ -15,5 +16,5 @@
   "transport": [
     "stdio"
   ],
-  "url": "https://github.com/Shopify/dev-mcp"
+  "url": "https://shopify.dev/docs/apps/build/ai-toolkit"
 }

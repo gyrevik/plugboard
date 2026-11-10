@@ -2,6 +2,7 @@
   "addedAt": "2026-10-15",
   "auth": "credentials",
   "category": "cloud",
+  "checkedAt": "2026-11-10",
   "lang": "Go",
   "maintainer": "containers (Red Hat)",
   "name": "Kubernetes",
@@ -13,7 +14,8 @@
     "pods"
   ],
   "transport": [
-    "stdio"
+    "stdio",
+    "http"
   ],
   "url": "https://github.com/containers/kubernetes-mcp-server"
 }

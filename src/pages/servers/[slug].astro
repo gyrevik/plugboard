@@ -71,6 +71,7 @@ const schema = {
           <dd><a href={`/categories/${cat.id}/`}>{cat.label}</a></dd>
           <dt>Listed</dt>
           <dd><time datetime={s.addedAt}>{s.addedAt}</time></dd>
+          {s.checkedAt && (<><dt>Details checked</dt><dd><time datetime={s.checkedAt}>{s.checkedAt}</time></dd></>)}
         </dl>
       </section>
 
@@ -82,6 +83,8 @@ const schema = {
             <pre class="snippet"><code>{snippet}</code></pre>
             {s.transport.includes("stdio") && <p class="muted" style="margin:0">It can also run locally. See the <a href={s.url} rel="noopener">source</a> for install steps.</p>}
           </div>
+        ) : !s.transport.includes("stdio") ? (
+          <p class="muted" style="margin:0">This is a hosted server whose address depends on your account. The <a href={s.url} rel="noopener">setup docs</a> show how to find yours.</p>
         ) : (
           <p class="muted" style="margin:0">This server runs on your machine. Install and configuration steps are in the <a href={s.url} rel="noopener">source repository</a>.</p>
         )}

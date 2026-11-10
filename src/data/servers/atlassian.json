@@ -2,6 +2,8 @@
   "addedAt": "2026-10-15",
   "auth": "oauth",
   "category": "work",
+  "checkedAt": "2026-11-10",
+  "endpoint": "https://mcp.atlassian.com/v2/mcp",
   "maintainer": "Atlassian",
   "name": "Atlassian (Jira & Confluence)",
   "official": true,
@@ -15,5 +17,5 @@
   "transport": [
     "http"
   ],
-  "url": "https://www.atlassian.com/platform/remote-mcp-server"
+  "url": "https://www.atlassian.com/platform/rovo-mcp"
 }

@@ -2,8 +2,8 @@
   "addedAt": "2026-10-15",
   "auth": "oauth",
   "category": "commerce",
+  "checkedAt": "2026-11-10",
   "endpoint": "https://mcp.stripe.com",
-  "lang": "TypeScript",
   "maintainer": "Stripe",
   "name": "Stripe",
   "official": true,
@@ -14,8 +14,7 @@
     "invoices"
   ],
   "transport": [
-    "stdio",
     "http"
   ],
-  "url": "https://github.com/stripe/agent-toolkit"
+  "url": "https://docs.stripe.com/mcp"
 }

@@ -2,7 +2,8 @@
   "addedAt": "2026-10-15",
   "auth": "api-key",
   "category": "browser",
-  "lang": "TypeScript",
+  "checkedAt": "2026-11-10",
+  "endpoint": "https://mcp.browserbase.com/mcp",
   "maintainer": "Browserbase",
   "name": "Browserbase",
   "official": true,
@@ -13,7 +14,7 @@
     "stagehand"
   ],
   "transport": [
-    "stdio"
+    "http"
   ],
-  "url": "https://github.com/browserbase/mcp-server-browserbase"
+  "url": "https://docs.browserbase.com/integrations/mcp/introduction"
 }

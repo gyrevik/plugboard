@@ -2,6 +2,7 @@
   "addedAt": "2026-10-15",
   "auth": "api-key",
   "category": "search",
+  "checkedAt": "2026-11-10",
   "lang": "TypeScript",
   "maintainer": "Brave",
   "name": "Brave Search",

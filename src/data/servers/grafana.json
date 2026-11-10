@@ -2,6 +2,7 @@
   "addedAt": "2026-10-15",
   "auth": "api-key",
   "category": "dev",
+  "checkedAt": "2026-11-10",
   "lang": "Go",
   "maintainer": "Grafana Labs",
   "name": "Grafana",
@@ -14,7 +15,8 @@
     "observability"
   ],
   "transport": [
-    "stdio"
+    "stdio",
+    "http"
   ],
   "url": "https://github.com/grafana/mcp-grafana"
 }

@@ -2,7 +2,9 @@
   "addedAt": "2026-10-15",
   "auth": "oauth",
   "category": "creative",
+  "checkedAt": "2026-11-10",
   "endpoint": "https://huggingface.co/mcp",
+  "lang": "TypeScript",
   "maintainer": "Hugging Face",
   "name": "Hugging Face",
   "official": true,
@@ -13,7 +15,8 @@
     "spaces"
   ],
   "transport": [
+    "stdio",
     "http"
   ],
-  "url": "https://huggingface.co/mcp"
+  "url": "https://github.com/huggingface/hf-mcp-server"
 }

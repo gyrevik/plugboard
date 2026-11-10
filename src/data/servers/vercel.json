@@ -2,6 +2,7 @@
   "addedAt": "2026-10-15",
   "auth": "oauth",
   "category": "cloud",
+  "checkedAt": "2026-11-10",
   "endpoint": "https://mcp.vercel.com",
   "maintainer": "Vercel",
   "name": "Vercel",
@@ -15,5 +16,5 @@
   "transport": [
     "http"
   ],
-  "url": "https://vercel.com/docs/mcp/vercel-mcp"
+  "url": "https://vercel.com/docs/agent-resources/vercel-mcp"
 }

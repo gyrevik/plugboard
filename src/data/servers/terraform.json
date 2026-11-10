@@ -2,6 +2,7 @@
   "addedAt": "2026-10-15",
   "auth": "none",
   "category": "cloud",
+  "checkedAt": "2026-11-10",
   "lang": "Go",
   "maintainer": "HashiCorp",
   "name": "Terraform",
@@ -13,7 +14,8 @@
     "providers"
   ],
   "transport": [
-    "stdio"
+    "stdio",
+    "http"
   ],
   "url": "https://github.com/hashicorp/terraform-mcp-server"
 }

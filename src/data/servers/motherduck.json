@@ -2,6 +2,8 @@
   "addedAt": "2026-10-15",
   "auth": "none",
   "category": "data",
+  "checkedAt": "2026-11-10",
+  "endpoint": "https://api.motherduck.com/mcp",
   "lang": "Python",
   "maintainer": "MotherDuck",
   "name": "MotherDuck & DuckDB",
@@ -13,7 +15,8 @@
     "sql"
   ],
   "transport": [
-    "stdio"
+    "stdio",
+    "http"
   ],
   "url": "https://github.com/motherduckdb/mcp-server-motherduck"
 }

@@ -1,11 +1,13 @@
 {
   "addedAt": "2026-10-15",
-  "auth": "api-key",
+  "auth": "oauth",
   "category": "automation",
+  "checkedAt": "2026-11-10",
+  "endpoint": "https://mcp.zapier.com/api/v1/connect",
   "maintainer": "Zapier",
   "name": "Zapier",
   "official": true,
-  "summary": "Expose actions across thousands of Zapier-connected apps to an agent through a personal server URL.",
+  "summary": "Let an agent take actions across thousands of Zapier-connected apps through Zapier's hosted MCP server.",
   "tags": [
     "integrations",
     "workflows",

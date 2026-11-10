@@ -2,6 +2,8 @@
   "addedAt": "2026-10-15",
   "auth": "oauth",
   "category": "data",
+  "checkedAt": "2026-11-10",
+  "endpoint": "https://mcp.neon.tech/mcp",
   "lang": "TypeScript",
   "maintainer": "Neon",
   "name": "Neon",
@@ -13,7 +15,6 @@
     "branches"
   ],
   "transport": [
-    "stdio",
     "http"
   ],
   "url": "https://github.com/neondatabase/mcp-server-neon"

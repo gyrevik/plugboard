@@ -2,6 +2,7 @@
   "addedAt": "2026-10-15",
   "auth": "oauth",
   "category": "dev",
+  "checkedAt": "2026-11-10",
   "endpoint": "https://mcp.sentry.dev/mcp",
   "lang": "TypeScript",
   "maintainer": "Sentry",
@@ -17,5 +18,5 @@
     "stdio",
     "http"
   ],
-  "url": "https://github.com/getsentry/sentry-mcp"
+  "url": "https://github.com/getsentry/toolkit"
 }

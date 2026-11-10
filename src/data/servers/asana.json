@@ -2,6 +2,8 @@
   "addedAt": "2026-10-15",
   "auth": "oauth",
   "category": "work",
+  "checkedAt": "2026-11-10",
+  "endpoint": "https://mcp.asana.com/v2/mcp",
   "maintainer": "Asana",
   "name": "Asana",
   "official": true,

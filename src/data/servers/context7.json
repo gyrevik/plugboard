@@ -2,6 +2,7 @@
   "addedAt": "2026-10-15",
   "auth": "none",
   "category": "search",
+  "checkedAt": "2026-11-10",
   "endpoint": "https://mcp.context7.com/mcp",
   "lang": "TypeScript",
   "maintainer": "Upstash",

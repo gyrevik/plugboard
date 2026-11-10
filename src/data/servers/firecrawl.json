@@ -2,6 +2,8 @@
   "addedAt": "2026-10-15",
   "auth": "api-key",
   "category": "search",
+  "checkedAt": "2026-11-10",
+  "endpoint": "https://mcp.firecrawl.dev/v2/mcp",
   "lang": "TypeScript",
   "maintainer": "Firecrawl",
   "name": "Firecrawl",
@@ -13,7 +15,8 @@
     "extraction"
   ],
   "transport": [
-    "stdio"
+    "stdio",
+    "http"
   ],
   "url": "https://github.com/firecrawl/firecrawl-mcp-server"
 }

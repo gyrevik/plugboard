@@ -2,6 +2,8 @@
   "addedAt": "2026-10-15",
   "auth": "api-key",
   "category": "commerce",
+  "checkedAt": "2026-11-10",
+  "endpoint": "https://mcp.paypal.com/sse",
   "lang": "TypeScript",
   "maintainer": "PayPal",
   "name": "PayPal",
@@ -12,7 +14,8 @@
     "invoices"
   ],
   "transport": [
-    "stdio"
+    "stdio",
+    "http"
   ],
-  "url": "https://github.com/paypal/agent-toolkit"
+  "url": "https://developer.paypal.com/ai-tools/mcp-server"
 }

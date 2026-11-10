@@ -2,6 +2,7 @@
   "addedAt": "2026-10-15",
   "auth": "none",
   "category": "browser",
+  "checkedAt": "2026-11-10",
   "lang": "TypeScript",
   "maintainer": "Google Chrome DevTools team",
   "name": "Chrome DevTools",

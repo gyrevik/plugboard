@@ -1,19 +1,19 @@
 {
   "addedAt": "2026-10-15",
-  "auth": "credentials",
+  "auth": "oauth",
   "category": "data",
-  "lang": "Python",
-  "maintainer": "Snowflake Labs",
+  "checkedAt": "2026-11-10",
+  "maintainer": "Snowflake",
   "name": "Snowflake",
   "official": true,
-  "summary": "Query Snowflake, use Cortex Search and Cortex Analyst, and manage objects.",
+  "summary": "Expose Cortex Agents, Cortex Analyst, Cortex Search and SQL from a Snowflake account through a Snowflake-managed MCP server.",
   "tags": [
     "warehouse",
     "sql",
     "cortex"
   ],
   "transport": [
-    "stdio"
+    "http"
   ],
-  "url": "https://github.com/Snowflake-Labs/mcp"
+  "url": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-agents-mcp"
 }

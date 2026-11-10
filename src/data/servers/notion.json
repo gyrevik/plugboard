@@ -2,8 +2,8 @@
   "addedAt": "2026-10-15",
   "auth": "oauth",
   "category": "work",
+  "checkedAt": "2026-11-10",
   "endpoint": "https://mcp.notion.com/mcp",
-  "lang": "TypeScript",
   "maintainer": "Notion",
   "name": "Notion",
   "official": true,
@@ -14,8 +14,7 @@
     "databases"
   ],
   "transport": [
-    "stdio",
     "http"
   ],
-  "url": "https://github.com/makenotion/notion-mcp-server"
+  "url": "https://developers.notion.com/guides/mcp/overview"
 }

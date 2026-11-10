@@ -2,6 +2,7 @@
   "addedAt": "2026-10-15",
   "auth": "none",
   "category": "dev",
+  "checkedAt": "2026-11-10",
   "lang": "Go",
   "maintainer": "Docker",
   "name": "Docker MCP Gateway",
@@ -13,7 +14,8 @@
     "catalog"
   ],
   "transport": [
-    "stdio"
+    "stdio",
+    "http"
   ],
   "url": "https://github.com/docker/mcp-gateway"
 }
