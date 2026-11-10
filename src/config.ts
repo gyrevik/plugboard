@@ -1,5 +1,5 @@
 // Change these before deploying.
-export const SITE_URL = "https://plugboard.example.com";
+export const SITE_URL = "https://plugboard.us";
 export const SITE_NAME = "Plugboard";
 export const SITE_TAGLINE =
   "A directory of Model Context Protocol servers. Filter by what they connect to, how they run, and how they sign in.";
