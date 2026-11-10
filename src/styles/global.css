@@ -152,6 +152,8 @@ fieldset.field { border: 0; padding: 0; margin: 0; }
 .note { font-size: 14px; color: var(--muted); }
 .note.err { color: #B3392F; }
 @media (prefers-color-scheme: dark) { .note.err { color: #E57B70; } }
+.dupe { margin: -4px 0 0; padding: 10px 12px; border-radius: 8px; font-size: 14px; background: var(--brass-soft); color: var(--ink); display: block; }
+.dupe.sure { background: var(--accent-soft); }
 .trap { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 .btn:disabled { opacity: .6; cursor: progress; }
 

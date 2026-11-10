@@ -4,10 +4,14 @@
 //   GITHUB_REPO           "owner/name", set in wrangler.toml
 //   TURNSTILE_SECRET_KEY  (secret, optional but recommended) enables the bot check
 
+import { findMatches, isCertain, normalizeName, normalizeUrl, type ListingRef } from "../src/lib/dedupe";
+
 export interface Env {
   GITHUB_TOKEN?: string;
   GITHUB_REPO?: string;
   TURNSTILE_SECRET_KEY?: string;
+  /** Static site files; used to read /servers.json */
+  ASSETS?: { fetch(request: Request): Promise<Response> };
 }
 
 type Ctx = { request: Request; env: Env };
@@ -39,6 +43,47 @@ async function readBody(request: Request): Promise<Record<string, unknown>> {
   const out: Record<string, unknown> = {};
   for (const [k, v] of form) out[k] = k === "transport" ? form.getAll(k) : v;
   return out;
+}
+
+const ghHeaders = (token: string) => ({
+  authorization: `Bearer ${token}`,
+  accept: "application/vnd.github+json",
+  "x-github-api-version": "2022-11-28",
+  "user-agent": "plugboard-submit",
+});
+
+/** Published listings, from the /servers.json file built with the site. */
+async function publishedListings(request: Request, env: Env): Promise<ListingRef[]> {
+  if (!env.ASSETS) return [];
+  try {
+    const res = await env.ASSETS.fetch(new Request(new URL("/servers.json", request.url)));
+    return res.ok ? ((await res.json()) as ListingRef[]) : [];
+  } catch {
+    return [];
+  }
+}
+
+interface Pending { number: number; url: string; name: string; links: string[] }
+
+/** Open submission issues, from this form or the GitHub issue form. */
+async function pendingSubmissions(env: Env): Promise<Pending[]> {
+  try {
+    const res = await fetch(`https://api.github.com/repos/${env.GITHUB_REPO}/issues?labels=submission&state=open&per_page=100`, {
+      headers: ghHeaders(env.GITHUB_TOKEN!),
+    });
+    if (!res.ok) return [];
+    const issues = (await res.json()) as { number: number; html_url: string; title: string; body: string | null; pull_request?: unknown }[];
+    return issues
+      .filter((i) => !i.pull_request)
+      .map((i) => ({
+        number: i.number,
+        url: i.html_url,
+        name: i.title.replace(/^add server:\s*/i, ""),
+        links: (i.body || "").match(/https?:\/\/[^\s"'`<>)\]]+/g)?.map(normalizeUrl) ?? [],
+      }));
+  } catch {
+    return [];
+  }
 }
 
 async function passesTurnstile(secret: string, token: string, ip: string | null) {
@@ -100,6 +145,25 @@ export async function onRequestPost({ request, env }: Ctx): Promise<Response> {
   if (!listing.transport.length) problems.push("at least one way the server runs");
   if (problems.length) return json(400, { error: `Add ${problems.join(", ")}.` });
 
+  // Duplicates: the same link or endpoint is certain and stops here; the same name only
+  // might be (an official and a community server can share one), so it's flagged instead.
+  const [published, pending] = await Promise.all([publishedListings(request, env), pendingSubmissions(env)]);
+  const matches = findMatches(listing, published);
+  const listed = matches.find(isCertain);
+  if (listed) {
+    return json(409, { error: `${listed.listing.name} is already listed.`, link: `/servers/${listed.listing.slug}/`, linkText: "See the listing" });
+  }
+  const links = [normalizeUrl(listing.url), normalizeUrl(listing.endpoint)].filter(Boolean);
+  const waiting = pending.find((p) => links.some((l) => p.links.includes(l)));
+  if (waiting) {
+    return json(409, { error: "This server is already waiting for review.", link: waiting.url, linkText: `See issue #${waiting.number}` });
+  }
+  const origin = new URL(request.url).origin;
+  const possible = [
+    ...matches.map((m) => `- [${m.listing.name}](${origin}/servers/${m.listing.slug}/) (already listed)`),
+    ...pending.filter((p) => normalizeName(p.name) === normalizeName(listing.name)).map((p) => `- #${p.number} (waiting for review)`),
+  ];
+
   // Everything the submitter typed goes inside one fenced JSON block, so it can't
   // add markdown, links or @mentions to the issue. Strip anything that could close the fence.
   const fileJson = JSON.stringify(listing, null, 2).replace(/`{3,}/g, "``");
@@ -112,17 +176,12 @@ export async function onRequestPost({ request, env }: Ctx): Promise<Response> {
     "````json",
     fileJson,
     "````",
+    ...(possible.length ? ["", "**Possible duplicate** (same name):", ...possible] : []),
   ].join("\n");
 
   const gh = await fetch(`https://api.github.com/repos/${env.GITHUB_REPO}/issues`, {
     method: "POST",
-    headers: {
-      authorization: `Bearer ${env.GITHUB_TOKEN}`,
-      accept: "application/vnd.github+json",
-      "x-github-api-version": "2022-11-28",
-      "user-agent": "plugboard-submit",
-      "content-type": "application/json",
-    },
+    headers: { ...ghHeaders(env.GITHUB_TOKEN), "content-type": "application/json" },
     body: JSON.stringify({ title: `Add server: ${listing.name}`, body, labels: ["submission"] }),
   });
 
@@ -132,7 +191,7 @@ export async function onRequestPost({ request, env }: Ctx): Promise<Response> {
     return json(502, { error: `Your submission couldn't be saved just now. Try again in a few minutes. (Code GH${gh.status})` });
   }
   const issue = (await gh.json()) as { number: number; html_url: string };
-  return json(200, { ok: true, issue: issue.number, url: issue.html_url });
+  return json(200, { ok: true, issue: issue.number, url: issue.html_url, possibleDuplicate: possible.length > 0 });
 }
 
 export function onRequest(): Response {

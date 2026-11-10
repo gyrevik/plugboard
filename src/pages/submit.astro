@@ -42,6 +42,7 @@ const example = JSON.stringify(
         <div class="field"><label for="s-name">Server name</label><input id="s-name" name="name" type="text" required maxlength="80" placeholder="e.g. Linear" /></div>
         <div class="field"><label for="s-maint">Maintained by</label><input id="s-maint" name="maintainer" type="text" maxlength="80" placeholder="Company or GitHub user" /></div>
         <div class="field full"><label for="s-url">Repository or docs link</label><input id="s-url" name="url" type="url" required maxlength="300" placeholder="https://github.com/…" /></div>
+        <p class="dupe field full" id="s-dup" role="status" hidden></p>
         <div class="field full"><label for="s-summary">What it does</label><textarea id="s-summary" name="summary" required maxlength="280" placeholder="One or two sentences on what an agent can do with it."></textarea></div>
         <div class="field">
           <label for="s-cat">Category</label>
@@ -110,16 +111,50 @@ const example = JSON.stringify(
 </Base>
 
 <script>
+  import { findMatches, isCertain, type ListingRef } from "../lib/dedupe";
+
   const form = document.getElementById("sform") as HTMLFormElement;
   const note = document.getElementById("s-note")!;
+  const dup = document.getElementById("s-dup")!;
   const go = document.getElementById("s-go") as HTMLButtonElement;
-  (document.getElementById("s-started") as HTMLInputElement).value = String(Date.now());
+  const started = document.getElementById("s-started") as HTMLInputElement;
+  started.value = String(Date.now());
 
-  function say(text: string, isError = false, html = false) {
-    note.className = isError ? "note err" : "note";
-    if (html) note.innerHTML = text;
-    else note.textContent = text;
+  function link(href: string, text: string) {
+    const a = document.createElement("a");
+    a.href = href;
+    a.textContent = text;
+    return a;
   }
+
+  function say(text: string, isError = false, href?: string, linkText?: string) {
+    note.className = isError ? "note err" : "note";
+    note.textContent = text;
+    if (href && linkText) note.append(" ", link(href, linkText), ".");
+  }
+
+  // Instant duplicate hint while typing. The Worker makes the final call.
+  let listings: ListingRef[] = [];
+  fetch("/servers.json").then((r) => r.json()).then((l) => { listings = l; checkDupes(); }).catch(() => {});
+  let timer: number | undefined;
+  function checkDupes() {
+    const v = (id: string) => (document.getElementById(id) as HTMLInputElement).value;
+    const matches = findMatches({ name: v("s-name"), url: v("s-url"), endpoint: v("s-endpoint") }, listings);
+    const sure = matches.find(isCertain);
+    const named = matches[0];
+    dup.hidden = !named;
+    if (sure) {
+      dup.className = "dupe field full sure";
+      dup.textContent = `${sure.listing.name} is already listed with this ${sure.on === "endpoint" ? "endpoint" : "link"}.`;
+      dup.append(" ", link(`/servers/${sure.listing.slug}/`, "See the listing"), ".");
+    } else if (named) {
+      dup.className = "dupe field full";
+      dup.textContent = `A server named ${named.listing.name} is already listed.`;
+      dup.append(" ", link(`/servers/${named.listing.slug}/`, "Check it"), " first. If yours is a different server, go ahead.");
+    }
+  }
+  for (const id of ["s-name", "s-url", "s-endpoint"])
+    document.getElementById(id)!.addEventListener("input", () => { clearTimeout(timer); timer = window.setTimeout(checkDupes, 250); });
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -133,22 +168,20 @@ const example = JSON.stringify(
     try {
       const res = await fetch(form.action, { method: "POST", body: data });
       const out = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(out.error || "Your submission couldn't be saved just now. Try again in a few minutes.");
+      if (!res.ok) {
+        say(out.error || "Your submission couldn't be saved just now. Try again in a few minutes.", true, out.link, out.linkText);
+        (window as any).turnstile?.reset();
+        return;
+      }
       const name = String(data.get("name")).trim();
       form.reset();
-      (document.getElementById("s-started") as HTMLInputElement).value = String(Date.now());
+      dup.hidden = true;
+      started.value = String(Date.now());
       (window as any).turnstile?.reset();
-      if (out.url) {
-        const a = document.createElement("a");
-        a.href = out.url;
-        a.textContent = `issue #${out.issue}`;
-        say(`Thanks! ${name} is in the review queue as `);
-        note.append(a, ".");
-      } else {
-        say(`Thanks! ${name} is in the review queue.`);
-      }
-    } catch (err) {
-      say((err as Error).message, true);
+      if (out.url) say(`Thanks! ${name} is in the review queue as`, false, out.url, `issue #${out.issue}`);
+      else say(`Thanks! ${name} is in the review queue.`);
+    } catch {
+      say("Your submission couldn't be sent. Check your connection and try again.", true);
       (window as any).turnstile?.reset();
     } finally {
       go.disabled = false;
