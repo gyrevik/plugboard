@@ -25,10 +25,12 @@ The site deploys as a Cloudflare Worker with static assets: `dist/` is served as
 4. In the Worker: **Settings → Variables and Secrets**, add `GITHUB_TOKEN` as a **secret**.
    (`GITHUB_REPO` is set in `wrangler.toml`; plain variables added in the dashboard are
    overwritten on each deploy, secrets are kept.)
-5. Recommended, to keep bots out: create a **Turnstile** widget (Cloudflare dashboard → Turnstile) for your domain, then add
-   - `TURNSTILE_SECRET_KEY` as a secret under **Settings → Variables and Secrets**, and
-   - `PUBLIC_TURNSTILE_SITE_KEY` under **Settings → Build → Variables and secrets** (it's read
-     at build time, so trigger a new build after adding it).
+5. Recommended, to keep bots out: create a **Turnstile** widget (Cloudflare dashboard → Turnstile → Add widget,
+   hostname `plugboard.us`, mode **Managed**). Then:
+   - put the **site key** in `TURNSTILE_SITE_KEY` in `src/config.ts` (it's public) and push, and
+   - after that deploy finishes, add the **secret key** as `TURNSTILE_SECRET_KEY` under the Worker's
+     **Settings → Variables and Secrets**, type **Secret**.
+   Do them in that order: with the secret set but no widget on the page, every submission is rejected.
 6. Every push to `main` rebuilds and deploys.
 
 ## The submit form

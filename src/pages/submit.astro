@@ -1,10 +1,9 @@
 ---
 import Base from "../layouts/Base.astro";
 import { CATEGORIES } from "../data/categories";
-import { REPO_URL } from "../config";
+import { REPO_URL, TURNSTILE_SITE_KEY } from "../config";
 
-// Set PUBLIC_TURNSTILE_SITE_KEY in the Cloudflare build settings to show the bot check.
-const turnstileKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | undefined;
+const turnstileKey = TURNSTILE_SITE_KEY;
 const issueUrl = `${REPO_URL}/issues/new?template=submit-server.yml`;
 const example = JSON.stringify(
   {
