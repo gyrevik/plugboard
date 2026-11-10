@@ -90,7 +90,6 @@ export async function onRequestPost({ request, env }: Ctx): Promise<Response> {
     tags: [] as string[],
     addedAt: new Date().toISOString().slice(0, 10),
   };
-  const contact = str(d.contact, 120);
 
   const problems: string[] = [];
   if (!listing.name) problems.push("a server name");
@@ -113,7 +112,6 @@ export async function onRequestPost({ request, env }: Ctx): Promise<Response> {
     "````json",
     fileJson,
     "````",
-    ...(contact ? ["", "Submitter contact (not published on the site):", "", "````text", contact.replace(/`{3,}/g, "``"), "````"] : []),
   ].join("\n");
 
   const gh = await fetch(`https://api.github.com/repos/${env.GITHUB_REPO}/issues`, {

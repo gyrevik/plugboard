@@ -64,7 +64,6 @@ const example = JSON.stringify(
           </div>
         </fieldset>
         <div class="field"><label for="s-endpoint">Remote endpoint <span class="opt">(optional)</span></label><input id="s-endpoint" name="endpoint" type="url" maxlength="300" placeholder="https://mcp.example.com/mcp" /></div>
-        <div class="field full"><label for="s-contact">Your email or GitHub handle <span class="opt">(optional, in case we have questions)</span></label><input id="s-contact" name="contact" type="text" maxlength="120" /></div>
 
         <!-- Spam traps: hidden from people, filled in by bots -->
         <div class="trap" aria-hidden="true"><label for="s-website">Website</label><input id="s-website" name="website" type="text" tabindex="-1" autocomplete="off" /></div>
@@ -82,7 +81,7 @@ const example = JSON.stringify(
     <aside class="stack">
       <section class="sheet">
         <h2>What happens next</h2>
-        <p class="muted" style="margin:0">Your submission becomes a public issue in our <a href={`${REPO_URL}/issues?q=label%3Asubmission`}>GitHub repo</a>, where we check it before it's listed. Your contact details are included there so we can follow up, so leave that field blank if you'd rather keep them private.</p>
+        <p class="muted" style="margin:0">Your submission becomes a public issue in our <a href={`${REPO_URL}/issues?q=label%3Asubmission`}>GitHub repo</a>, where we check it before it's listed. Don't include personal details in the form: everything you enter is public there.</p>
       </section>
       <section class="sheet">
         <h2>Prefer GitHub?</h2>
