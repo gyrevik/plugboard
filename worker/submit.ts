@@ -130,7 +130,8 @@ export async function onRequestPost({ request, env }: Ctx): Promise<Response> {
 
   if (!gh.ok) {
     console.error("GitHub issue create failed", gh.status, await gh.text());
-    return json(502, { error: "Your submission couldn't be saved just now. Try again in a few minutes." });
+    // The code lets the site owner tell a bad token (401) from missing permissions (403/404) without reading logs.
+    return json(502, { error: `Your submission couldn't be saved just now. Try again in a few minutes. (Code GH${gh.status})` });
   }
   const issue = (await gh.json()) as { number: number; html_url: string };
   return json(200, { ok: true, issue: issue.number, url: issue.html_url });

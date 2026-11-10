@@ -8,6 +8,10 @@ directory = "./dist"
 binding = "ASSETS"
 not_found_handling = "404-page"
 
+# Keep Worker logs so errors show up under the Worker's Observability tab.
+[observability]
+enabled = true
+
 [vars]
 GITHUB_REPO = "gyrevik/plugboard"
 # GITHUB_TOKEN and TURNSTILE_SECRET_KEY are secrets: set them in the Cloudflare
