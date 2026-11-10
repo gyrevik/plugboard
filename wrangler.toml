@@ -1,8 +1,14 @@
+# Must match the Worker's name in the Cloudflare dashboard.
 name = "plugboard"
+main = "worker/index.ts"
 compatibility_date = "2026-09-01"
-pages_build_output_dir = "dist"
+
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+not_found_handling = "404-page"
 
 [vars]
 GITHUB_REPO = "gyrevik/plugboard"
 # GITHUB_TOKEN and TURNSTILE_SECRET_KEY are secrets: set them in the Cloudflare
-# dashboard (Settings > Variables and Secrets), or in .dev.vars for local testing.
+# dashboard (Worker > Settings > Variables and Secrets), or in .dev.vars for local testing.

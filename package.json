@@ -8,7 +8,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "preview:cf": "astro build && wrangler pages dev"
+    "preview:cf": "astro build && wrangler dev"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

@@ -1,10 +1,10 @@
 // POST /api/submit — turns a "Submit a server" form post into a GitHub issue.
-// Runs as a Cloudflare Pages Function. Configure in the Pages dashboard:
+// Called from worker/index.ts. Configure in the Cloudflare dashboard (Worker > Settings):
 //   GITHUB_TOKEN          (secret) fine-grained token: this repo only, Issues read/write
 //   GITHUB_REPO           "owner/name", set in wrangler.toml
 //   TURNSTILE_SECRET_KEY  (secret, optional but recommended) enables the bot check
 
-interface Env {
+export interface Env {
   GITHUB_TOKEN?: string;
   GITHUB_REPO?: string;
   TURNSTILE_SECRET_KEY?: string;
