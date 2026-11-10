@@ -1,0 +1,21 @@
+{
+  "addedAt": "2026-11-10",
+  "auth": "none",
+  "category": "search",
+  "checkedAt": "2026-11-10",
+  "endpoint": "https://mcp.twilio.com/docs",
+  "maintainer": "Twilio",
+  "name": "Twilio Docs",
+  "official": true,
+  "summary": "Search Twilio, SendGrid and Segment API specs and docs so agents write accurate integration code. Read-only: it doesn't call Twilio APIs.",
+  "tags": [
+    "docs",
+    "api-specs",
+    "sms",
+    "coding"
+  ],
+  "transport": [
+    "http"
+  ],
+  "url": "https://www.twilio.com/docs/ai/mcp"
+}

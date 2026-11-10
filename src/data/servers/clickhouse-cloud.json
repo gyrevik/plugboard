@@ -1,0 +1,21 @@
+{
+  "addedAt": "2026-11-10",
+  "auth": "oauth",
+  "category": "data",
+  "checkedAt": "2026-11-10",
+  "endpoint": "https://mcp.clickhouse.cloud/mcp",
+  "maintainer": "ClickHouse",
+  "name": "ClickHouse Cloud",
+  "official": true,
+  "summary": "List databases and tables and run read-only SELECT queries against your ClickHouse Cloud services, with no local install.",
+  "tags": [
+    "analytics",
+    "sql",
+    "olap",
+    "hosted"
+  ],
+  "transport": [
+    "http"
+  ],
+  "url": "https://clickhouse.com/docs/products/cloud/features/ai-ml/mcp/remote-mcp"
+}
