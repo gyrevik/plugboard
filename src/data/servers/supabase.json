@@ -2,7 +2,7 @@
   "addedAt": "2026-10-15",
   "auth": "oauth",
   "category": "data",
-  "checkedAt": "2026-11-10",
+  "checkedAt": "2026-11-11",
   "endpoint": "https://mcp.supabase.com/mcp",
   "lang": "TypeScript",
   "maintainer": "Supabase",

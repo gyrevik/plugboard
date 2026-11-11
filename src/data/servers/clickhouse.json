@@ -2,7 +2,7 @@
   "addedAt": "2026-10-15",
   "auth": "credentials",
   "category": "data",
-  "checkedAt": "2026-11-10",
+  "checkedAt": "2026-11-11",
   "lang": "Python",
   "maintainer": "ClickHouse",
   "name": "ClickHouse",
@@ -14,7 +14,8 @@
     "olap"
   ],
   "transport": [
-    "stdio"
+    "stdio",
+    "http"
   ],
   "url": "https://github.com/ClickHouse/mcp-clickhouse"
 }
