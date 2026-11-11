@@ -10,6 +10,8 @@ export interface Env {
   GITHUB_TOKEN?: string;
   GITHUB_REPO?: string;
   TURNSTILE_SECRET_KEY?: string;
+  /** Comma-separated hostnames the form may be served from, e.g. "plugboard.us". */
+  TURNSTILE_HOSTNAMES?: string;
   /** Static site files; used to read /servers.json */
   ASSETS?: { fetch(request: Request): Promise<Response> };
 }
@@ -86,15 +88,24 @@ async function pendingSubmissions(env: Env): Promise<Pending[]> {
   }
 }
 
-async function passesTurnstile(secret: string, token: string, ip: string | null) {
-  if (!token) return false;
+const TURNSTILE_ACTION = "submit";
+
+// Server-side Turnstile check. Tokens are single-use, so the form resets the widget after each try.
+// Besides success, the token must come from the submit widget on one of our own hostnames.
+async function passesTurnstile(secret: string, token: string, ip: string | null, hostnames: string[]) {
+  if (!token || hostnames.length === 0) return false;
   const body = new FormData();
   body.append("secret", secret);
   body.append("response", token);
   if (ip) body.append("remoteip", ip);
-  const res = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", { method: "POST", body });
-  const data = (await res.json()) as { success?: boolean };
-  return data.success === true;
+  try {
+    const res = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", { method: "POST", body });
+    if (!res.ok) return false;
+    const data = (await res.json()) as { success?: boolean; action?: string; hostname?: string };
+    return data.success === true && data.action === TURNSTILE_ACTION && hostnames.includes(data.hostname ?? "");
+  } catch {
+    return false;
+  }
 }
 
 export async function onRequestPost({ request, env }: Ctx): Promise<Response> {
@@ -117,7 +128,8 @@ export async function onRequestPost({ request, env }: Ctx): Promise<Response> {
   }
 
   if (env.TURNSTILE_SECRET_KEY) {
-    const ok = await passesTurnstile(env.TURNSTILE_SECRET_KEY, str(d["cf-turnstile-response"], 4096), request.headers.get("CF-Connecting-IP"));
+    const hostnames = (env.TURNSTILE_HOSTNAMES ?? "").split(",").map((h) => h.trim()).filter(Boolean);
+    const ok = await passesTurnstile(env.TURNSTILE_SECRET_KEY, str(d["cf-turnstile-response"], 4096), request.headers.get("CF-Connecting-IP"), hostnames);
     if (!ok) return json(400, { error: "The bot check didn't pass. Reload the page and try again." });
   }
 
