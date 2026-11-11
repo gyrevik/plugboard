@@ -69,7 +69,7 @@ const example = JSON.stringify(
         <div class="trap" aria-hidden="true"><label for="s-website">Website</label><input id="s-website" name="website" type="text" tabindex="-1" autocomplete="off" /></div>
         <input type="hidden" name="started" id="s-started" value="0" />
 
-        {turnstileKey && <div class="field full"><div class="cf-turnstile" data-sitekey={turnstileKey}></div></div>}
+        {turnstileKey && <div class="field full"><div class="cf-turnstile" data-sitekey={turnstileKey} data-action="submit"></div></div>}
 
         <div class="formfoot">
           <button class="btn primary" type="submit" id="s-go">Send for review</button>
