@@ -8,4 +8,4 @@ export const REPO_URL = "https://github.com/gyrevik/plugboard";
 // Cloudflare Turnstile site key for the submit form's bot check. It's public (it ships in the
 // page), so it lives here. The matching secret key goes only in the Worker's secrets as
 // TURNSTILE_SECRET_KEY. Leave empty to turn the widget off.
-export const TURNSTILE_SITE_KEY = "0x4AAAAAAF0aHLttMGg6IfdQ";
+export const TURNSTILE_SITE_KEY = "";
