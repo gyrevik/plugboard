@@ -8,9 +8,12 @@ interface Props {
   /** JSON-LD object for this page */
   schema?: Record<string, unknown>;
   nav?: "directory" | "submit";
+  /** Social preview image path (1200x630), built under /og/ */
+  image?: string;
 }
 
-const { title, description, schema, nav } = Astro.props;
+const { title, description, schema, nav, image = "/og/default.png" } = Astro.props;
+const imageUrl = new URL(image, Astro.site);
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const fullTitle = title === SITE_NAME ? title : `${title} · ${SITE_NAME}`;
 ---
@@ -30,7 +33,13 @@ const fullTitle = title === SITE_NAME ? title : `${title} · ${SITE_NAME}`;
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={fullTitle} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={imageUrl} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
