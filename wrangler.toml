@@ -16,3 +16,8 @@ enabled = true
 GITHUB_REPO = "gyrevik/plugboard"
 # GITHUB_TOKEN and TURNSTILE_SECRET_KEY are secrets: set them in the Cloudflare
 # dashboard (Worker > Settings > Variables and Secrets), or in .dev.vars for local testing.
+
+# Preview deployments (pull request branches, via `wrangler preview`). An empty repo
+# turns the submit form off there, so a preview can never open real GitHub issues.
+[previews.vars]
+GITHUB_REPO = ""
