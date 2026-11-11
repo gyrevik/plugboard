@@ -2,7 +2,7 @@
   "addedAt": "2026-10-15",
   "auth": "oauth",
   "category": "dev",
-  "checkedAt": "2026-11-10",
+  "checkedAt": "2026-11-11",
   "endpoint": "https://mcp.sentry.dev/mcp",
   "lang": "TypeScript",
   "maintainer": "Sentry",

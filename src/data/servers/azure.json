@@ -2,7 +2,7 @@
   "addedAt": "2026-10-15",
   "auth": "credentials",
   "category": "cloud",
-  "checkedAt": "2026-11-10",
+  "checkedAt": "2026-11-11",
   "lang": "C#",
   "maintainer": "Microsoft",
   "name": "Azure MCP Server",
@@ -13,7 +13,8 @@
     "resources"
   ],
   "transport": [
-    "stdio"
+    "stdio",
+    "http"
   ],
   "url": "https://github.com/microsoft/mcp/tree/main/servers/Azure.Mcp.Server"
 }

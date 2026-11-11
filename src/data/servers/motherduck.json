@@ -2,7 +2,7 @@
   "addedAt": "2026-10-15",
   "auth": "none",
   "category": "data",
-  "checkedAt": "2026-11-10",
+  "checkedAt": "2026-11-11",
   "endpoint": "https://api.motherduck.com/mcp",
   "lang": "Python",
   "maintainer": "MotherDuck",

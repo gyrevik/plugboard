@@ -2,7 +2,7 @@
   "addedAt": "2026-10-15",
   "auth": "api-key",
   "category": "search",
-  "checkedAt": "2026-11-10",
+  "checkedAt": "2026-11-11",
   "endpoint": "https://mcp.firecrawl.dev/v2/mcp",
   "lang": "TypeScript",
   "maintainer": "Firecrawl",

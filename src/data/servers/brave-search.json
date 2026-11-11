@@ -2,7 +2,7 @@
   "addedAt": "2026-10-15",
   "auth": "api-key",
   "category": "search",
-  "checkedAt": "2026-11-10",
+  "checkedAt": "2026-11-11",
   "lang": "TypeScript",
   "maintainer": "Brave",
   "name": "Brave Search",
@@ -13,7 +13,8 @@
     "news"
   ],
   "transport": [
-    "stdio"
+    "stdio",
+    "http"
   ],
   "url": "https://github.com/brave/brave-search-mcp-server"
 }
